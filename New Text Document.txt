@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "IngreGenius",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
