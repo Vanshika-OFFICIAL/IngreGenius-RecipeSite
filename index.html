@@ -7,12 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css"/>
     <title>IngreGenius</title>
-    <script src="./script.js">// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
+    <script>
 // https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
+// web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDav9PFDGG3FN_pU245W1a3sW85fRIWFC0",
   authDomain: "ingregenius-21466.firebaseapp.com",
@@ -21,15 +18,17 @@ const firebaseConfig = {
   messagingSenderId: "1089446808921",
   appId: "1:1089446808921:web:d65aabeff614a74fc2d048"
 };
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
 </script>
+<script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js"></script>
     
 </head>
 <body>
-    <header>
-        <div class="banner">
+     <header class="banner">
             <div class="logo-tagline">
                 <img src="./logo.png" alt="IngreGenius logo">
                 <div class="tagline-container">
@@ -37,37 +36,49 @@ const app = initializeApp(firebaseConfig);
                     <p class="tagline">Ingredients toh sabke paas hote hain, idea hum dete hain!</p>
                 </div>
             </div>
-        </div>
-        <nav class="nav-links">
-           <a href="#">Home</a>
-           <a href="#">About</a>
-            <a href="#">Recipes</a>
-            <a href="#">Contact</a>
-            <button class="login-btn" onclick="window.location.href='login.php'">
-                Login
-             </button>
-        </nav>
-         <div class="top-nav">
-                <div class="panel">
-                    <!-- SEARCH BAR -->
-                    <div class="search-section">
-                        <input id="search" type="text" name="Search-here" placeholder="Enter Ingredients..." />
-                        <button id="search-btn" class="icon-btn"><i class="fa-solid fa-magnifying-glass"></i> </button>
-                    </div>
-                    <button class="fav">
-                        <i class="fas fa-heart"></i>Fav
-                    </button>
-                    <!-- FILTERS -->
-
+        </header>
+        <nav class="navbar">
+            <div class="nav-left">
+                <a href="#">Home</a>|
+                <a href="#">About</a>|
+                <a href="#">Contact</a>
+             </div>
+            <div class="nav-center">
+            <input type="text" id="search"  name="Search-here" placeholder="Enter Ingredients..."/>
+            <button id="search-btn" class="icon-btn"><i class="fas fa-search"></i></button>
             </div>
-    </header>
-    <!-- RECIPE GRID LAYOUT -->
-    <div id="recipe-output" class="recipe-box"></div>
+            <div class="nav-right">
+            <select id="filter-select">
+                <option value="">All</option>
+                <option value="veg">Veg</option>
+                <option value="nonveg">Non-Veg</option>
+                <option value="gluten-free">Gluten-Free</option>
+            </select>
+            <button class="fav" id="favoritesBtn"> <i class="fas fa-heart"></i>Fav </button>
+            <a href="#login" class="login-btn" >Login</a>
+            </div>
+        </nav>
+        <aside class="sidebar" id="sidebar">
+    <h3>Filters</h3>
+    <input type="text" placeholder="Ingredient">
+    <select>
+      <option value="">Cuisine</option>
+      <option value="Indian">Indian</option>
+      <option value="Chinese">Chinese</option>
+      <option value="Italian">Italian</option>
+    </select>
+    <button id="applyFilters">Apply</button>
+    <button id="closeFilters">Close</button>
+  </aside>
+
+         <!-- RECIPE GRID LAYOUT -->
+        <main>
+        <section id="recipe-output" class="recipe-box"></section>
+        </main>
     </div>
- <p>Suggested recipes will appear here...</p>
     <footer>
         <p>&copy; 2025 IngreGenius. All rights reserved.</p>
     </footer>
-    
+    <script src="./script.js"></script>
 </body>
 </html>

@@ -1,7 +1,8 @@
 const searchBtn = document.getElementById("search-btn");
-const voiceBtn = document.getElementById("voice-btn");
 const searchInput = document.getElementById("search");
 const outputBox = document.getElementById("recipe-output");
+const loginBtn = document.querySelector(".login-btn");
+let currentUser = null;
 
 document.addEventListener("DOMContentLoaded", () => {
   fetchDefaultRecipes();
@@ -54,6 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Search by ingredients
   async function fetchRecipes(ingredients) {
+    let filters = [];
   const primary = ingredients[0];
   const res = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${primary}`);
   const data = await res.json();
@@ -73,7 +75,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const filtered = details.filter(meal => {
     // ✅ include Indian,chinese,italian,continental recipes
-    if (meal.strArea.toLowerCase() !== "indian,chinese,italian,continental") return false;
+const allowedAreas = ["indian", "chinese", "italian", "continental"];
+if (!allowedAreas.includes(meal.strArea.toLowerCase())) return false;
 
     const mealIngredients = [];
     for (let i = 1; i <= 20; i++) {
