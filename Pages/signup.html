@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="../css/signup.css" />
+      <link rel="stylesheet" href="../css/style.css" />
+  <title>Create Account</title><link rel="icon" type="png" href="../img/logo.png">
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+
+  <script src="../js/signup.js" defer></script>
+</head>
+<body>
+  <form id="signup-form">
+    <h2>Create Account</h2>
+    <input
+        type="email"
+        id="signup-email"
+        placeholder="Email"
+        required
+        autocomplete="username"
+    />
+<input
+        type="password"
+        id="signup-password"
+        placeholder="Password"
+        required
+        autocomplete="new-password"
+    />
+
+    <button type="submit" id="signup-submit">Sign Up</button>
+    <p id="signup-error" style="color: red;"></p>
+    <div class="or-divider">
+        <span>or</span>
+</div>
+
+    <div class="social-login">
+  <button class="google-btn">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Logo_2013_Google.png" alt="Google" />
+    Continue with Google
+  </button>
+  <button class="facebook-btn">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" alt="Facebook" />
+    Continue with Facebook
+  </button>
+</div>
+<p class="back-home"><a href="../Pages/home.html">Back to Home</a></p>
+<p class="back-login">Already have an account?<a href="../Pages/login.html">Login</a></p>
+  </form>
+  <script src="../JS/signup.js" defer></script>
+</body>
+</html>

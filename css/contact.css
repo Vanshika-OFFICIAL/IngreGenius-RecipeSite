@@ -1,0 +1,109 @@
+/* Base Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #f0f4f8, #e8f6f3);
+  color: #2d3436;
+  padding: 30px 20px;
+  background: url('https://thumbs.dreamstime.com/z/colorful-food-ingredients-white-background-colorful-food-ingredients-white-background-bio-healthy-food-herbs-spices-109450637.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+/* Header */
+header h1 {
+  font-size: 2.5rem;
+  color: #00cec9;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+header p {
+  text-align: center;
+  font-size: 1.05rem;
+  color: #636e72;
+  margin-bottom: 35px;
+}
+
+/* Contact Form Card */
+.contact-form-section {
+  max-width: 600px;
+  margin: auto;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Input Fields */
+#contact-form input,
+#contact-form textarea {
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  border: 1px solid #dfe6e9;
+  border-radius: 10px;
+  font-size: 16px;
+  background: #f9f9f9;
+  transition: 0.3s ease-in-out;
+}
+
+#contact-form input:focus,
+#contact-form textarea:focus {
+  border-color: #00cec9;
+  outline: none;
+  background: #fff;
+  box-shadow: 0 0 5px rgba(0, 206, 201, 0.3);
+}
+
+/* Send Button */
+#contact-form button {
+  background: linear-gradient(to right, #00b894, #00cec9);
+  color: white;
+  padding: 14px;
+  width: 100%;
+  font-size: 17px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+#contact-form button:hover {
+  background: linear-gradient(to right, #00cec9, #00b894);
+}
+
+/* Status Message */
+#status-message {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 15px;
+  color: #2c3e50;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .contact-form-section {
+    padding: 20px;
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+
+  header p {
+    font-size: 0.95rem;
+  }
+
+  #contact-form button {
+    font-size: 16px;
+  }
+}

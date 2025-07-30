@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Favorites | IngreGenius</title>
+  <link rel="stylesheet" href="../css/fav.css" />
+</head>
+<body>
+    <h2 class="fav-heading">Your Favorite Recipes</h2>
+    <div class="fav-grid" id="favoritesContainer">
+    <!-- Cards will be inserted dynamically -->
+    </div>
+    <p class="empty-fav" id="emptyMessage" style="display: none;">You haven’t added any favorites yet.</p>
+
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="../JS/fav.js"></script>
+</body>
+</html>

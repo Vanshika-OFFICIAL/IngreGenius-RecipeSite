@@ -1,0 +1,206 @@
+/* Reset and Box Model */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: url('../img/bg-image\ [1].jpg') no-repeat center center fixed;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 6%;
+  backdrop-filter: blur(2px); /* subtle effect for luxury */
+}
+
+/* Form Container */
+form {
+  background: rgba(255, 255, 255, 0.75); /* glassy card effect */
+  padding: 45px 35px;
+  border-radius: 18px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 100%;
+  transition: transform 0.3s ease;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Subtle pop on hover */
+form:hover {
+  transform: scale(1.015);
+}
+
+/* Heading */
+form h2 {
+  text-align: center;
+  color: #2e7d32; /* deeper green */
+  margin-bottom: 25px;
+  font-weight: 700;
+  font-size: 1.7rem;
+  letter-spacing: 0.5px;
+}
+
+/* Inputs */
+form input {
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  border: 1px solid #c8e6c9;
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  transition: 0.3s ease;
+}
+
+form input:focus {
+  border-color: #43a047;
+  box-shadow: 0 0 10px rgba(67, 160, 71, 0.2);
+  outline: none;
+}
+
+/* Primary Button */
+form button {
+  width: 100%;
+  background-color: #43a047;
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+form button:hover {
+  background-color: #2e7d32;
+  transform: scale(1.02);
+}
+
+/* Error */
+#error-msg {
+  color: red;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Links */
+form p {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+form p a {
+  color: #43a047;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+form p a:hover {
+  text-decoration: underline;
+}
+
+/* Social Buttons */
+.social-login {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.social-login button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.2s ease;
+}
+
+.social-login button img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Google */
+.google-btn {
+  background-color: #fffde7;
+  border: 1px solid #e0e0e0;
+  color: #555;
+}
+
+.google-btn:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+  color: #222;
+}
+
+/* Facebook */
+.facebook-btn {
+  background-color: #1877f2;
+  color: #fff;
+}
+
+.facebook-btn:hover {
+  background-color: #155db1;
+  transform: scale(1.02);
+}
+
+/* OR Divider */
+.or-divider {
+  text-align: center;
+  margin: 15px 0;
+  color: #aaa;
+  font-size: 0.9rem;
+  position: relative;
+}
+
+.or-divider span {
+  background: #fff;
+  padding: 0 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.or-divider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  background: #ccc;
+  z-index: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  body {
+    padding: 0 15px;
+    justify-content: center;
+  }
+
+  form {
+    margin: 0;
+  }
+}
+.back-login{
+  text-align: center;
+  margin-top: 5px;
+  font-size: 0.9rem;
+}

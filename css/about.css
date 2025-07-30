@@ -1,0 +1,90 @@
+ :root {
+      --primary: #ff6f00;
+      --secondary: #43a047;
+      --light-bg: #fffdf8;
+      --dark-text: #2c2c2c;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--light-bg);
+      color: var(--dark-text);
+      padding: 40px 20px;
+      background: url('https://tse4.mm.bing.net/th/id/OIP.QPxYp8UEEfX6ZcVUP4ZJNQHaLJ?w=590&h=888&rs=1&pid=ImgDetMain&o=7&rm=3') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .about-container {
+      max-width: 1000px;
+      margin: auto;
+      background: #ffffff;
+      padding: 50px 40px;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      color: var(--secondary);
+      margin: 30px 0 15px;
+    }
+
+    p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 15px;
+    }
+
+    .highlight {
+      background-color: rgba(255, 111, 0, 0.1);
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    .cta {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .cta a {
+      display: inline-block;
+      background-color: var(--primary);
+      color: white;
+      padding: 14px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .cta a:hover {
+      background-color: #e65100;
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+      .about-container {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.3rem;
+      }
+    }

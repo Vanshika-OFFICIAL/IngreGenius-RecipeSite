@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="../css/login.css"/>
+    <title>Login | IngreGenius</title><link rel="icon" type="png" href="../img/logo.png">
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+</head>
+<body>
+<!-- login form -->
+ <div class="login-container">
+    <h2>Login to IngreGenius</h2>
+    <form id="login-form">
+      <input type="email" id="login-email" placeholder="Email" autocomplete="username" required />
+      <input type="password" id="login-password" placeholder="Password" autocomplete="current-password" required />
+      <button type="submit" id="login-submit">Login</button>
+      <p id="login-error" class="error-msg"></p>
+     <p>Don't have an account? <a href="signup.html">Sign up here</a></p>
+    </form>
+  </div>
+      <script type="module" src="../JS/login.js" defer></script>
+      
+</body>
+</html>

@@ -1,0 +1,97 @@
+/* Reset & Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(120deg, #e0f5e9, #ffffff);
+  min-height: 100vh;
+  padding: 40px 6%;
+}
+
+/* Page Heading */
+.fav-heading {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #28a745;
+  margin-bottom: 30px;
+  letter-spacing: 0.5px;
+}
+
+/* Grid Container */
+.fav-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+/* Recipe Card */
+.fav-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.fav-card:hover {
+  transform: translateY(-5px);
+}
+
+.fav-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.fav-card-content {
+  padding: 16px;
+}
+
+.fav-card h3 {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.fav-card p {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.fav-card a {
+  text-decoration: none;
+  color: #28a745;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.fav-card a:hover {
+  text-decoration: underline;
+}
+
+/* Empty State */
+.empty-fav {
+  text-align: center;
+  color: #888;
+  font-size: 1.1rem;
+  margin-top: 50px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .fav-heading {
+    font-size: 1.5rem;
+  }
+
+  .fav-card img {
+    height: 150px;
+  }
+}
