@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css"/>
+    <title>Document</title>
+</head>
+<body>
+    <header class="banner">
+            <div class="logo-tagline">
+                <img src="../img/logo.png" alt="IngreGenius logo">
+                <div class="tagline-container">
+                    <h1 id="brand-name">IngreGenius</h1>
+                    <p id="tagline">Ingredients toh sabke paas hote hain, idea hum dete hain!</p>
+                </div>
+            </div>
+        </header>
+        <!---- Navbar ---->
+        <nav class="navbar">
+            <div class="nav-left">
+                <a href="../Pages/home.html">Home</a>|
+                <a href="./about.html">About</a>|
+                <a href="./contact.html">Contact</a>
+             </div>
+            <div class="nav-center">
+            <input type="text" id="search"  name="Search-here" placeholder="Enter Ingredients..."/>
+            <button id="search-btn" class="icon-btn"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="nav-right">
+                <select id="filter-select">
+                    <option value="">All</option>
+                    <option value="veg">Veg</option>
+                    <option value="nonveg">Non-Veg</option>
+                    <option value="gluten-free">Gluten-Free</option>
+                </select>
+                <a href="./fav.html" class="fav" id="favBtn"> <i class="fas fa-heart"></i>Fav </a>
+                <a href="../Pages/login.html" class="login-btn" >Login</a>
+                 <a href="../Pages/signup.html" class="signup-btn" >Signup</a>
+            </div>
+        </nav>
+         <script src="../JS/script.js" ></script>
+</body>
+</html>

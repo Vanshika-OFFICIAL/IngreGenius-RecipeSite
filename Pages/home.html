@@ -12,69 +12,23 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     
-    <script>
-// https://firebase.google.com/docs/web/setup#available-libraries
-// web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyDav9PFDGG3FN_pU245W1a3sW85fRIWFC0",
-  authDomain: "ingregenius-21466.firebaseapp.com",
-  projectId: "ingregenius-21466",
-  storageBucket: "ingregenius-21466.firebasestorage.app",
-  messagingSenderId: "1089446808921",
-  appId: "1:1089446808921:web:d65aabeff614a74fc2d048"
-};
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
-</script> 
+<script src="../JS/firebase-config.js"></script>
+<script src="../JS/fav.js"></script>
+<script src="../JS/search.js"></script>
+<script src="../JS/preferences.js"></script>
+
+
 </head>
 <body>
-     <header class="banner">
-            <div class="logo-tagline">
-                <img src="../img/logo.png" alt="IngreGenius logo">
-                <div class="tagline-container">
-                    <h1 class="brand-name">IngreGenius</h1>
-                    <p class="tagline">Ingredients toh sabke paas hote hain, idea hum dete hain!</p>
-                </div>
-            </div>
-        </header>
-        <!---- Navbar ---->
-        <nav class="navbar">
-            <div class="nav-left">
-                <a href="../Pages/home.html">Home</a>|
-                <a href="./about.html">About</a>|
-                <a href="./contact.html">Contact</a>
-             </div>
-            <div class="nav-center">
-            <input type="text" id="search"  name="Search-here" placeholder="Enter Ingredients..."/>
-            <button id="search-btn" class="icon-btn"><i class="fas fa-search"></i></button>
-            </div>
-            <div class="nav-right">
-                <select id="filter-select">
-                    <option value="">All</option>
-                    <option value="veg">Veg</option>
-                    <option value="nonveg">Non-Veg</option>
-                    <option value="gluten-free">Gluten-Free</option>
-                </select>
-                <a href="./fav.html" class="fav" id="favoritesBtn"> <i class="fas fa-heart"></i>Fav </a>
-                <a href="../Pages/login.html" class="login-btn" >Login</a>
-                 <a href="../Pages/signup.html" class="signup-btn" >Signup</a>
-            </div>
-        </nav>
-        <aside class="sidebar" id="sidebar">
-    <h3>Filters</h3>
-    <input type="text" placeholder="Ingredient">
-    <select>
-      <option value="">Cuisine</option>
-      <option value="Indian">Indian</option>
-      <option value="Chinese">Chinese</option>
-      <option value="Italian">Italian</option>
-    </select>
-    <button id="applyFilters">Apply</button>
-    <button id="closeFilters">Close</button>
-  </aside>
-
-         <!-- RECIPE GRID LAYOUT -->
+  <div id="navbar"></div>
+<script>
+  fetch('navbar.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('navbar').innerHTML = data;
+    });
+</script>
+     <!-- RECIPE GRID LAYOUT -->
         <main>
         <section id="recipe-output" class="recipe-box"></section>
         </main>
@@ -82,6 +36,6 @@ const db = firebase.firestore();
     <footer>
         <p>&copy; 2025 IngreGenius. All rights reserved.</p>
     </footer>
-    <script src="../JS/script.js"></script>
+    <script src="../JS/script.js" ></script>
 </body>
 </html>

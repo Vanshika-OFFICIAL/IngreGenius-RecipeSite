@@ -1,63 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="../css/contact.css" /> 
-  <title>Contact Us | IngreGenius</title>
-  <link rel="stylesheet" href="contact.css">
-    <link rel="stylesheet"  href="../css/style.css">
-  <script type="module" src="/firebase-config.js"></script> <!-- Firebase Config -->
-</head>
-<body>
-  <header>
-    <h1>Contact Us</h1>
-    <p>Have questions, suggestions, or just want to say hello? We’d love to hear from you!</p>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/contact.css" />
+    <title>Contact Us | IngreGenius</title>
+    <link rel="icon" type="png" href="../img/logo.png" />
+    <link rel="stylesheet" href="../css/contact.css" />
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
-  <section class="contact-form-section">
-    <form id="contact-form">
-      <input type="text" id="name" name="name" placeholder="Your Name" required />
-      <input type="email" id="email" name="email" placeholder="Your Email" required />
-      <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-      <p id="status-message"></p>
-    </form>
-    <p class="back-home"><a href="../Pages/home.html">Back to Home</a></p>
-  </section>
-
-  <footer>
-    <p>© 2025 IngreGenius | All rights reserved.</p>
-  </footer>
-
-  <script type="module">
-    import { db } from "./firebase-config.js";
-    import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-    const form = document.getElementById("contact-form");
-    const statusMsg = document.getElementById("status-message");
-
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      const name = form.name.value.trim();
-      const email = form.email.value.trim();
-      const message = form.message.value.trim();
-
-      try {
-        await addDoc(collection(db, "contactMessages"), {
-          name,
-          email,
-          message,
-          timestamp: new Date()
+    <script src="../JS/firebase-config.js"></script>
+    <script src="../JS/contact.js"></script>
+  </head>
+  <body>
+    <div id="navbar"></div>
+    <script>
+      fetch("navbar.html")
+        .then((res) => res.text())
+        .then((data) => {
+          document.getElementById("navbar").innerHTML = data;
         });
-        statusMsg.innerText = "✅ Message sent successfully!";
-        form.reset();
-      } catch (error) {
-        console.error("Error sending message:", error);
-        statusMsg.innerText = "❌ Failed to send message. Please try again.";
-      }
-    });
-  </script>
-</body>
+    </script>
+    <div id="header">
+      <h1>Contact Us</h1>
+      <p>
+        Have questions, suggestions, or just want to say hello? We’d love to
+        hear from you!
+      </p>
+    </div>
+
+    <section class="contact-form-section">
+      <form id="contact-form">
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Your Name"
+          required
+        />
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Your Email"
+          required
+        />
+        <textarea
+          id="message"
+          name="message"
+          rows="5"
+          placeholder="Your Message"
+          required
+        ></textarea>
+        <button type="submit">Send Message</button>
+        <p id="status-message"></p>
+      </form>
+    </section>
+  </body>
 </html>

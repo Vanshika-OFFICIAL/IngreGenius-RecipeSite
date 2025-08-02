@@ -1,4 +1,4 @@
-/* Reset & Base Styles */
+/* Reset and base styles */
 * {
   margin: 0;
   padding: 0;
@@ -7,91 +7,110 @@
 
 body {
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(120deg, #e0f5e9, #ffffff);
-  min-height: 100vh;
-  padding: 40px 6%;
+  background: linear-gradient(135deg, #f4f4f9, #e8ecf4);
+  color: #333;
+  padding: 20px;
 }
 
-/* Page Heading */
+/* Heading */
 .fav-heading {
-  text-align: center;
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: bold;
-  color: #28a745;
-  margin-bottom: 30px;
-  letter-spacing: 0.5px;
+  text-align: center;
+  margin-bottom: 10px;
+  color: #2c3e50;
 }
 
-/* Grid Container */
-.fav-grid {
+/* Back to Home link */
+a[href="index.html"] {
+  text-decoration: none;
+  color: #3498db;
+  font-weight: 500;
+  margin-bottom: 20px;
+  display: block;
+  text-align: center;
+}
+
+/* Search bar */
+#searchFav {
+  display: block;
+  margin: 10px auto 30px auto;
+  padding: 10px 15px;
+  width: 80%;
+  max-width: 400px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: 0.3s ease;
+}
+
+#searchFav:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+/* Favorites container */
+#favorites-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  padding: 0 20px;
 }
 
-/* Recipe Card */
+/* Individual card style */
 .fav-card {
-  background: #fff;
+  background-color: #fff;
   border-radius: 16px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  transition: transform 0.3s ease;
+  text-align: center;
+  padding-bottom: 15px;
 }
 
 .fav-card:hover {
-  transform: translateY(-5px);
+  transform: scale(1.02);
 }
 
 .fav-card img {
   width: 100%;
   height: 180px;
   object-fit: cover;
-}
-
-.fav-card-content {
-  padding: 16px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
 }
 
 .fav-card h3 {
-  font-size: 1.1rem;
-  color: #333;
-  margin-bottom: 10px;
+  font-size: 1.3rem;
+  margin: 15px 0 5px;
+  color: #2c3e50;
 }
 
 .fav-card p {
-  font-size: 0.9rem;
-  color: #666;
-  margin-bottom: 12px;
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 8px;
 }
 
 .fav-card a {
   text-decoration: none;
-  color: #28a745;
-  font-weight: 500;
-  font-size: 0.9rem;
+  color: #e74c3c;
+  font-weight: bold;
+  font-size: 0.95rem;
+  display: inline-block;
+  margin-top: 5px;
+  transition: color 0.3s ease;
 }
 
 .fav-card a:hover {
-  text-decoration: underline;
+  color: #c0392b;
 }
 
-/* Empty State */
+/* Empty message */
 .empty-fav {
   text-align: center;
-  color: #888;
+  margin-top: 30px;
+  color: #7f8c8d;
   font-size: 1.1rem;
-  margin-top: 50px;
-}
-
-/* Responsive Design */
-@media (max-width: 600px) {
-  .fav-heading {
-    font-size: 1.5rem;
-  }
-
-  .fav-card img {
-    height: 150px;
-  }
+  font-style: italic;
 }

@@ -122,7 +122,7 @@ async function fetchDefaultRecipes() {
       )
     );
 
-    const ytRes = await fetch("https://www.googleapis.com/youtube/v3/search?part=snippet&q=indian+recipes&type=video&maxResults=8&key=YOUR_YT_KEY");
+    const ytRes = await fetch("https://www.googleapis.com/youtube/v3/search?part=snippet&q=indian+recipes&type=video&maxResults=8&key=AIzaSyCNd1F_KzFHn0opLAsCXihAa8Dfofoq4sI");
     const ytData = await ytRes.json();
 
     await displayRecipes(detailedMeals, ytData.items);

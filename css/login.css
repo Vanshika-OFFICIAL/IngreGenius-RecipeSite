@@ -6,8 +6,9 @@ body {
   justify-content: center;
   height: 100vh;
   margin: 0;
-   background: url('https://static.vecteezy.com/system/resources/thumbnails/046/629/239/small_2x/baking-ingredients-on-blue-color-background-top-view-photo.jpg') no-repeat center center fixed;
+   background: url('../img/bg-image\ [1].jpg') no-repeat center center fixed;
   background-size: cover;
+   backdrop-filter: blur(2px);
 }
 form{
     transition: transform 0.3s ease;
@@ -58,4 +59,19 @@ button:hover {
   font-size: 0.9em;
   margin-top: 10px;
   text-align: center;
+}
+.back-home {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.9rem;
+}
+
+.back-home a {
+  color: #1f1e88;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.back-home a:hover {
+  text-decoration: underline;
 }

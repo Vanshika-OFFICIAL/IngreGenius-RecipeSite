@@ -3,21 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Favorites | IngreGenius</title>
+  <title>My Favorites | IngreGenius</title><link rel="icon" type="png" href="../img/logo.png">
   <link rel="stylesheet" href="../css/fav.css" />
+
+  <!-- Firebase v8 CDN -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+  <!-- Firebase Config (No type="module") -->
+  <script src="../JS/firebase-config.js"></script>
 </head>
 <body>
     <h2 class="fav-heading">Your Favorite Recipes</h2>
-    <div class="fav-grid" id="favoritesContainer">
-    <!-- Cards will be inserted dynamically -->
-    </div>
+    <a href="index.html" style="margin: 20px; display: inline-block;">⬅ Back to Home</a>
+
+    <input type="text" id="searchFav" placeholder="Search your favorites..." onkeyup="filterFavorites()" />
+
+      <div id="favorites-list" style="display:flex; flex-wrap:wrap; gap:20px;"></div>
     <p class="empty-fav" id="emptyMessage" style="display: none;">You haven’t added any favorites yet.</p>
 
-
-  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js"></script>
-  <script src="firebase-config.js"></script>
-  <script src="../JS/fav.js"></script>
+    <!-- Favorites Script -->
+    <script src="../JS/fav.js"></script>
 </body>
 </html>
