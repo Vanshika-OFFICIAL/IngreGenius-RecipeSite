@@ -16,13 +16,12 @@
 </head>
 <body>
     <h2 class="fav-heading">Your Favorite Recipes</h2>
-    <a href="index.html" style="margin: 20px; display: inline-block;">⬅ Back to Home</a>
+    <a href="../Pages/home.html" style="margin: 20px; display: inline-block;">⬅ Back to Home</a>
 
     <input type="text" id="searchFav" placeholder="Search your favorites..." onkeyup="filterFavorites()" />
 
-      <div id="favorites-list" style="display:flex; flex-wrap:wrap; gap:20px;"></div>
+      <div id="favoritesContainer" style="display:flex; flex-wrap:wrap; gap:20px;"></div>
     <p class="empty-fav" id="emptyMessage" style="display: none;">You haven’t added any favorites yet.</p>
-
     <!-- Favorites Script -->
     <script src="../JS/fav.js"></script>
 </body>

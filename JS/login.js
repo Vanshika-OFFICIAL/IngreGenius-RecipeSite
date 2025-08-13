@@ -8,7 +8,7 @@ const firebaseConfig = {
   appId: "1:1089446808921:web:d65aabeff614a74fc2d048"
 };
 
-// Initialize Firebase (compat)
+// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
@@ -22,7 +22,7 @@ const errorMsg = document.getElementById("login-error");
 // Click listener
 submitBtn.addEventListener("click", function(event) {
   event.preventDefault();
-  
+
   const emailVal = email.value.trim();
   const passwordVal = password.value;
 
@@ -34,9 +34,9 @@ submitBtn.addEventListener("click", function(event) {
   // Firebase login
   auth.signInWithEmailAndPassword(emailVal, passwordVal)
     .then((userCredential) => {
-      const user = userCredential.user;
-      alert("Login successful! Welcome " + user.email);
-      // Optional: window.location.href = "home.html";
+      localStorage.setItem("loginTime", Date.now());
+      alert("Logged in successfully!");
+      window.location.href = "index.html"; // Redirect to home
     })
     .catch((error) => {
       console.error(error.code, error.message);

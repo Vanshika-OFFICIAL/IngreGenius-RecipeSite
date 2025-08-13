@@ -2,38 +2,106 @@ const searchBtn = document.getElementById("search-btn");
 const searchInput = document.getElementById("search");
 const outputBox = document.getElementById("recipe-output");
 const favBtn = document.getElementById("favBtn");
-
+const YT_API_KEY = "AIzaSyCNd1F_KzFHn0opLAsCXihAa8Dfofoq4sI";
 document.addEventListener("DOMContentLoaded", () => {
-  fetchDefaultRecipes();
+  firebase.auth().onAuthStateChanged((user) => {
+    const loginTime = localStorage.getItem("loginTime");
+    const now = Date.now();
 
-  searchBtn.addEventListener("click", () => {
+    if (!user) {
+      // Not logged in → redirect to signup
+      window.location.href = "signup.html";
+    } else if (loginTime) {
+      const hoursPassed = (now - loginTime) / (1000 * 60 * 60);
+      if (hoursPassed >= 12) {
+        // Logged in but session expired → logout
+        firebase.auth().signOut()
+          .then(() => {
+            localStorage.removeItem("loginTime");
+            alert("Session expired. Please log in again.");
+            window.location.href = "signup.html";
+          });
+      } else {
+        // Logged in and session valid → load recipes
+        fetchDefaultRecipes();
+      }
+    } else {
+      // Logged in but no loginTime saved → treat as expired
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          alert("Session expired. Please log in again.");
+          window.location.href = "signup.html";
+        });
+    }
+  });
+
+  searchBtn.addEventListener("click", async () => {
     const input = searchInput.value.trim();
     if (!input) return;
 
-    const ingredients = input.split(",").map(i => i.trim().toLowerCase());
+    const ingredients = input.split(",").map((i) => i.trim().toLowerCase());
     outputBox.innerHTML = "<p>Searching...</p>";
-    fetchRecipes(ingredients);
-    fetchYouTubeVideos(input);
+    try {
+      const [meals, videos] = await Promise.all([
+        fetchRecipes(ingredients),
+        fetchYouTubeVideos(input),
+      ]);
+      await displayRecipes(meals, videos);
+    } catch (error) {
+      console.error("Search error:", error);
+      outputBox.innerHTML = "<p>Error while searching. Please try again.</p>";
+    }
   });
 
   favBtn.addEventListener("click", () => {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        window.location.href = "favorites.html";
-      } else {
-        window.location.href = "signup.html";
-      }
+    firebase.auth().onAuthStateChanged((user) => {
+      window.location.href = user ? "favorites.html" : "signup.html";
     });
   });
 });
+const filterSelect = document.getElementById("filter-select");
 
+if (filterSelect) {
+  filterSelect.addEventListener("change", async (e) => {
+    const selected = e.target.value;
+    outputBox.innerHTML = "<p>Filtering recipes...</p>";
+
+    try {
+      let filteredMeals = [];
+
+      if (selected === "veg") {
+        filteredMeals = await fetchVegRecipes();
+      } else if (selected === "nonveg") {
+        filteredMeals = await fetchNonVegRecipes();
+      } else if (selected === "gluten-free") {
+        filteredMeals = await fetchGlutenFreeRecipes();
+      } else {
+        await fetchDefaultRecipes(); // All
+        return;
+      }
+
+      const keywords = filteredMeals.slice(0, 5).map(m => m.strMeal).join(", ");
+      const videos = await fetchYouTubeVideos(keywords);
+
+      await displayRecipes(filteredMeals, videos);
+    } catch (err) {
+      console.error("Filter error:", err);
+      outputBox.innerHTML = "<p>Error filtering recipes.</p>";
+    }
+  });
+}
 // Check if meal is favorited
 async function isFavorited(id) {
   const user = firebase.auth().currentUser;
   if (!user) return false;
-  const favDoc = await firebase.firestore()
-    .collection("users").doc(user.uid)
-    .collection("favorites").doc(id)
+  const favDoc = await firebase
+    .firestore()
+    .collection("users")
+    .doc(user.uid)
+    .collection("favorites")
+    .doc(id)
     .get();
   return favDoc.exists;
 }
@@ -41,11 +109,14 @@ async function isFavorited(id) {
 // Toggle favorite
 async function toggleFavorite(id, name, image, category) {
   const user = firebase.auth().currentUser;
-  if (!user) return window.location.href = "signup.html";
+  if (!user) return (window.location.href = "signup.html");
 
-  const favRef = firebase.firestore()
-    .collection("users").doc(user.uid)
-    .collection("favorites").doc(id);
+  const favRef = firebase
+    .firestore()
+    .collection("users")
+    .doc(user.uid)
+    .collection("favorites")
+    .doc(id);
   const doc = await favRef.get();
 
   if (doc.exists) {
@@ -59,13 +130,14 @@ async function toggleFavorite(id, name, image, category) {
 
 // Display Recipes + YouTube
 async function displayRecipes(meals = [], videos = []) {
-  if ((!meals.length) && (!videos.length)) {
+  if (!meals.length && !videos.length) {
     outputBox.innerHTML = "<p>No recipes found.</p>";
     return;
   }
 
   let html = "";
 
+  // 🍛 Meal Cards
   for (let i = 0; i < meals.length; i++) {
     if (i % 4 === 0) html += `<div class="row" style="display:flex; gap:20px; flex-wrap:wrap;">`;
 
@@ -75,21 +147,53 @@ async function displayRecipes(meals = [], videos = []) {
         <img src="${meals[i].strMealThumb}" alt="${meals[i].strMeal}" style="width:100%; height:180px; object-fit:cover; border-radius:6px;">
         <h4>${meals[i].strMeal}</h4>
         <p><strong>Category:</strong> ${meals[i].strCategory}</p>
-        <button class="fav-btn ${isFav ? 'active' : ''}"
+        <button class="fav-btn ${isFav ? "active" : ""}"
           onclick="toggleFavorite('${meals[i].idMeal}', '${meals[i].strMeal}', '${meals[i].strMealThumb}', '${meals[i].strCategory}')">
-          ${isFav ? '❤️ Favorited' : '🤍 Add to Favorite'}
+          ${isFav ? "❤️ Favorited" : "🤍 Add to Favorite"}
         </button>
       </div>
     `;
     if ((i + 1) % 4 === 0 || i === meals.length - 1) html += `</div>`;
   }
 
+  // 🎥 YouTube Cards
+  if (videos.length > 0) {
+    html += `<h3 style="margin-top:30px;">🎥 YouTube Recipes</h3>`;
+    html += `<div class="row" style="display:flex; flex-wrap:wrap; gap:20px;">`;
+
+    for (let i = 0; i < videos.length; i++) {
+      const video = videos[i];
+      const { title } = video.snippet;
+      const thumbnail = video.snippet.thumbnails.medium.url;
+      const videoId = video.id.videoId;
+      const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
+      const isFav = await isFavorited(videoId);
+
+      html += `
+        <div class="recipe-card" style="flex: 1 1 23%; border:1px solid #ccc; padding:10px; border-radius:8px; max-width: 23%; text-align:center;">
+          <a href="${videoUrl}" target="_blank">
+            <img src="${thumbnail}" alt="${title}" style="width:100%; border-radius:6px; height:180px; object-fit:cover;">
+          </a>
+          <p style="margin-top:10px;">${title}</p>
+          <button class="fav-btn ${isFav ? "active" : ""}"
+            onclick="toggleFavorite('${videoId}', '${title}', '${thumbnail}', 'YouTube')">
+            ${isFav ? "❤️ Favorited" : "🤍 Add to Favorite"}
+          </button>
+        </div>
+      `;
+    }
+
+    html += `</div>`;
+  }
+
+  outputBox.innerHTML = html;
+}
   // 🎥 YouTube
   if (videos.length > 0) {
     html += `<h3 style="margin-top:30px;">🎥 YouTube Recipes</h3>`;
     html += `<div class="row" style="display:flex; flex-wrap:wrap; gap:20px;">`;
 
-    videos.forEach(video => {
+    videos.forEach((video) => {
       const { title } = video.snippet;
       const thumbnail = video.snippet.thumbnails.medium.url;
       const videoUrl = `https://www.youtube.com/watch?v=${video.id.videoId}`;
@@ -108,25 +212,47 @@ async function displayRecipes(meals = [], videos = []) {
   }
 
   outputBox.innerHTML = html;
-}
+
 
 // 🍛 Indian default recipes
 async function fetchDefaultRecipes() {
+  const cuisines = ["Indian", "Chinese", "Italian", "Continental", "German"];
+  const allDetailedMeals = [];
+
   try {
-    const mealDbRes = await fetch("https://www.themealdb.com/api/json/v1/1/filter.php?a=Indian");
-    const mealDbData = await mealDbRes.json();
+    // Fetch meals from all cuisines
+    const cuisineFetches = cuisines.map(cuisine =>
+      fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${cuisine}`)
+        .then(res => res.json())
+        .then(data => data.meals || [])
+    );
+
+    const cuisineResults = await Promise.all(cuisineFetches);
+
+    // Flatten and fetch detailed info for each meal
+    const allMeals = cuisineResults.flat();
     const detailedMeals = await Promise.all(
-      mealDbData.meals.map(meal =>
+      allMeals.map(meal =>
         fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal.idMeal}`)
-          .then(res => res.json()).then(res => res.meals[0])
+          .then(res => res.json())
+          .then(data => data.meals[0])
       )
     );
 
-    const ytRes = await fetch("https://www.googleapis.com/youtube/v3/search?part=snippet&q=indian+recipes&type=video&maxResults=8&key=AIzaSyCNd1F_KzFHn0opLAsCXihAa8Dfofoq4sI");
+    // Save for display
+    allDetailedMeals.push(...detailedMeals);
+
+    // Build YouTube query from top meal names
+    const keywords = detailedMeals.slice(0, 5).map(meal => meal.strMeal).join(", ");
+    const ytRes = await fetch(
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(keywords)}+recipes&type=video&maxResults=8&key=${YT_API_KEY}`
+    );
     const ytData = await ytRes.json();
 
-    await displayRecipes(detailedMeals, ytData.items);
+    // Display everything
+    await displayRecipes(allDetailedMeals, ytData.items);
   } catch (err) {
+    console.error("Error fetching recipes:", err);
     outputBox.innerHTML = "<p>Error fetching recipes. Please try again later.</p>";
   }
 }
@@ -134,45 +260,87 @@ async function fetchDefaultRecipes() {
 // 🔍 Search recipes by ingredients
 async function fetchRecipes(ingredients) {
   const primary = ingredients[0];
-  const res = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${primary}`);
+  const res = await fetch(
+    `https://www.themealdb.com/api/json/v1/1/filter.php?i=${primary}`
+  );
   const data = await res.json();
 
-  if (!data.meals) {
-    outputBox.innerHTML = `<p>No recipes found for "${ingredients.join(", ")}".</p>`;
-    return;
-  }
+  if (!data.meals) return [];
 
   const details = await Promise.all(
-    data.meals.map(meal =>
-      fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal.idMeal}`)
-        .then(res => res.json()).then(res => res.meals[0])
+    data.meals.map((meal) =>
+      fetch(
+        `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal.idMeal}`
+      )
+        .then((res) => res.json())
+        .then((res) => res.meals[0])
     )
   );
 
-  const filtered = details.filter(meal => {
-    const allowedAreas = ["indian", "chinese", "italian", "continental"];
-    if (!allowedAreas.includes(meal.strArea.toLowerCase())) return false;
+  const allowedAreas = ["indian", "chinese", "italian", "continental"];
 
+  const scoredMeals = details.map((meal) => {
     const mealIngredients = [];
     for (let i = 1; i <= 20; i++) {
       const ing = meal[`strIngredient${i}`];
       if (ing) mealIngredients.push(ing.toLowerCase());
     }
-
-    const matchIngredients = ingredients.every(i => mealIngredients.includes(i));
-    return matchIngredients;
+    const matchCount = ingredients.filter((i) =>
+      mealIngredients.includes(i)
+    ).length;
+    return { ...meal, matchCount };
   });
 
-  await displayRecipes(filtered);
-}
+  const filtered = scoredMeals
+    .filter(
+      (meal) =>
+        allowedAreas.includes(meal.strArea.toLowerCase()) && meal.matchCount > 0
+    )
+    .sort((a, b) => b.matchCount - a.matchCount);
 
+  return filtered;
+}
 // 🔎 YouTube Search
 async function fetchYouTubeVideos(query) {
   try {
-    const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}+recipes&type=video&maxResults=8&key=YOUR_YT_KEY`);
+    const response = await fetch(
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(
+        query
+      )}+recipes&type=video&maxResults=8&key=${YT_API_KEY}`
+    );
     const ytData = await response.json();
-    await displayRecipes([], ytData.items);
+    return ytData.items;
   } catch (error) {
     console.error("YouTube fetch error:", error);
+    return [];
   }
+}
+async function fetchVegRecipes() {
+  const res = await fetch("https://www.themealdb.com/api/json/v1/1/filter.php?c=Vegetarian");
+  const data = await res.json();
+  return await Promise.all(data.meals.map(meal =>
+    fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal.idMeal}`)
+      .then(res => res.json())
+      .then(data => data.meals[0])
+  ));
+}
+
+async function fetchNonVegRecipes() {
+  const res = await fetch("https://www.themealdb.com/api/json/v1/1/filter.php?c=Beef");
+  const data = await res.json();
+  return await Promise.all(data.meals.map(meal =>
+    fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal.idMeal}`)
+      .then(res => res.json())
+      .then(data => data.meals[0])
+  ));
+}
+
+async function fetchGlutenFreeRecipes() {
+  const res = await fetch("https://www.themealdb.com/api/json/v1/1/filter.php?c=Miscellaneous");
+  const data = await res.json();
+  return await Promise.all(data.meals.map(meal =>
+    fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal.idMeal}`)
+      .then(res => res.json())
+      .then(data => data.meals[0])
+  ));
 }

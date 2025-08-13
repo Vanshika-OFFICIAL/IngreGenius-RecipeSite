@@ -9,7 +9,7 @@ body {
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(135deg, #f0f4f8, #e8f6f3);
   color: #2d3436;
-   background: url("https://img.freepik.com/premium-photo/white-wooden-background-cooking-spices-vegetables-top-view-free-space-your-text_187166-3516.jpg?w=1380") no-repeat center center fixed;
+   background: url("/img/bg-image\ [3].jpg") no-repeat center center fixed;
   background-size: cover;
    backdrop-filter: blur(2px);
 }

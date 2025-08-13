@@ -138,27 +138,17 @@ form p a:hover {
 }
 
 /* Google */
-.google-btn {
+#google-btn {
   background-color: #fffde7;
   border: 1px solid #e0e0e0;
   color: #555;
 }
 
-.google-btn:hover {
+#google-btn:hover {
   transform: scale(1.02);
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
   color: #222;
-}
-
-/* Facebook */
-.facebook-btn {
-  background-color: #1877f2;
-  color: #fff;
-}
-
-.facebook-btn:hover {
   background-color: #155db1;
-  transform: scale(1.02);
 }
 
 /* OR Divider */
