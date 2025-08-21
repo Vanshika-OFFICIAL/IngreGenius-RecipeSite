@@ -1,11 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const favList = document.getElementById("favoritesContainer");
+  if (!favList) return; // Agar element nahi hai to script band
+
   firebase.auth().onAuthStateChanged(async (user) => {
     if (!user) {
-      window.location.href = "signup.html"; // Redirect if not logged in
+      window.location.href = "signup.html";
       return;
     }
 
-    const favList = document.getElementById("favoritesContainer");
     const favRef = firebase
       .firestore()
       .collection("users")
@@ -52,8 +54,9 @@ async function removeFavorite(id) {
     .doc(id)
     .delete();
 
-  location.reload(); // Reload after deletion
+  location.reload();
 }
+
 function filterFavorites() {
   const input = document.getElementById("searchFav").value.toLowerCase();
   const cards = document.querySelectorAll(".recipe-card");

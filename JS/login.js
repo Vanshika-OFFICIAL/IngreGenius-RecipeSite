@@ -36,7 +36,7 @@ submitBtn.addEventListener("click", function(event) {
     .then((userCredential) => {
       localStorage.setItem("loginTime", Date.now());
       alert("Logged in successfully!");
-      window.location.href = "index.html"; // Redirect to home
+      window.location.href = "home.html"; // Redirect to home
     })
     .catch((error) => {
       console.error(error.code, error.message);
