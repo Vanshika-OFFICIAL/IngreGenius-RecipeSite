@@ -144,12 +144,12 @@ async function displayRecipes(meals = [], videos = []) {
 
     const isFav = await isFavorited(meals[i].idMeal);
     html += `
-      <div class="recipe-card" style="flex: 1 1 23%; border:1px solid #ddd; padding:10px; border-radius:8px; text-align:center; max-width: 23%;">
+      <div class="recipe-card" style="flex: 1 1 23%; border:1px solid #ddd; padding:10px; border-radius:8px; text-align:center; max-width: 23%; cursor:pointer;"
+        onclick="showRecipeDetails('${meals[i].idMeal}')">
         <img src="${meals[i].strMealThumb}" alt="${meals[i].strMeal}" style="width:100%; height:180px; object-fit:cover; border-radius:6px;">
         <h4>${meals[i].strMeal}</h4>
         <p><strong>Category:</strong> ${meals[i].strCategory}</p>
-        <button class="fav-btn ${isFav ? "active" : ""}"
-          onclick="toggleFavorite('${meals[i].idMeal}', '${meals[i].strMeal}', '${meals[i].strMealThumb}', '${meals[i].strCategory}')">
+        <button class="fav-btn ${isFav ? "active" : ""}" onclick="event.stopPropagation(); toggleFavorite('${meals[i].idMeal}', '${meals[i].strMeal}', '${meals[i].strMealThumb}', '${meals[i].strCategory}')">
           ${isFav ? "❤️ Favorited" : "🤍 Add to Favorite"}
         </button>
       </div>
@@ -162,7 +162,7 @@ async function displayRecipes(meals = [], videos = []) {
     html += `<h3 style="margin-top:30px;">🎥 YouTube Recipes</h3>`;
     html += `<div class="row" style="display:flex; flex-wrap:wrap; gap:20px;">`;
 
-    for (let video of videos) {
+    for (const video of videos) {
       const { title } = video.snippet;
       const thumbnail = video.snippet.thumbnails.medium.url;
       const videoId = video.id.videoId;
@@ -175,8 +175,7 @@ async function displayRecipes(meals = [], videos = []) {
             <img src="${thumbnail}" alt="${title}" style="width:100%; border-radius:6px; height:180px; object-fit:cover;">
           </a>
           <p style="margin-top:10px;">${title}</p>
-          <button class="fav-btn ${isFav ? "active" : ""}"
-            onclick="toggleFavorite('${videoId}', '${title}', '${thumbnail}', 'YouTube')">
+          <button class="fav-btn ${isFav ? "active" : ""}" onclick="toggleFavorite('${videoId}', '${title}', '${thumbnail}', 'YouTube')">
             ${isFav ? "❤️ Favorited" : "🤍 Add to Favorite"}
           </button>
         </div>

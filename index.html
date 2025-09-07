@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- External Fonts & Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- Local Styles -->
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="icon" type="image/png" href="../img/logo.png" />
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+  <!-- Local Scripts -->
+  <script src="../JS/firebase-config.js"></script>
+  <script src="../JS/fav.js"></script>
+  <script src="../JS/search.js"></script>
+  <script src="../JS/preferences.js"></script>
+
+  <title>IngreGenius</title>
+</head>
+<body>
+  <!-- Navbar -->
+  <div id="navbar"></div>
+  <script>
+    fetch('../Pages/navbar.html')  // corrected path
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('navbar').innerHTML = html;
+        document.dispatchEvent(new Event('navbar:ready'));
+      });
+  </script>
+
+  <!-- Recipe Grid Layout -->
+  <main>
+    <section id="recipe-output" class="recipe-box"></section>
+  </main>
+
+  <!-- Popup for Recipe Details -->
+  <div id="recipe-popup" class="popup-overlay">
+    <div class="popup-content">
+      <span class="close-btn" onclick="closePopup()">❌</span>
+      <img id="popup-img" class="popup-image" />
+      <h2 id="popup-title" class="popup-title"></h2>
+      <h3>Ingredients:</h3>
+      <ul id="popup-ingredients" class="popup-ingredients"></ul>
+      <h3>Instructions:</h3>
+      <p id="popup-instructions" class="popup-instructions"></p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 IngreGenius. All rights reserved.</p>
+  </footer>
+
+  <!-- Final Script -->
+  <script src="../JS/script.js" defer></script>
+</body>
+</html>

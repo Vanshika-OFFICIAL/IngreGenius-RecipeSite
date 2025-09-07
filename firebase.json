@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "IngreGenius",
+    "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -8,8 +8,8 @@
     ],
     "rewrites": [
       {
-        "source": "/",
-        "destination": "./Pages/home.html"
+        "source": "**",
+        "destination": "/index.html"
       }
     ]
   }
