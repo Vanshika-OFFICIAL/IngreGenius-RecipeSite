@@ -18,14 +18,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const now = Date.now();
 
     if (!user) {
-      window.location.href = "signup.html"; // Not logged in
+      window.location.href = "../Pages/signup.html"; // Not logged in
     } else if (loginTime) {
       const hoursPassed = (now - loginTime) / (1000 * 60 * 60);
       if (hoursPassed >= 12) {
         firebase.auth().signOut().then(() => {
           localStorage.removeItem("loginTime");
           alert("Session expired. Please log in again.");
-          window.location.href = "signup.html";
+          window.location.href = "../Pages/signup.html";
         });
       } else {
         fetchDefaultRecipes(); // ✅ Preload recipes
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       firebase.auth().signOut().then(() => {
         alert("Session expired. Please log in again.");
-        window.location.href = "signup.html";
+        window.location.href = "./Pages/signup.html";
       });
     }
   });
