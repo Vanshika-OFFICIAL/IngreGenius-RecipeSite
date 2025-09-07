@@ -3,6 +3,9 @@
 **IngreGenius** is a smart ingredient-based recipe recommendation web app that helps users discover delicious dishes from around the world. Powered by **TheMealDB API** and enhanced with **AI-powered suggestions**, it also integrates **YouTube cooking tutorials** for a complete cooking experience.
 
 ---
+## Live Demo
+
+Check out the live demo of this project here: [Live Demo](https://ingregenius.netlify.app/)
 
 ## ✨ Features
 
