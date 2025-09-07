@@ -28,7 +28,7 @@ googleBtn.addEventListener("click", () => {
     .then(result => {
       localStorage.setItem("loginTime", Date.now());
       alert("Signed up with Google!");
-      window.location.href = "index.html"; // Redirect to home
+      window.location.href = "../index.html"; // Redirect to home
     })
     .catch(error => {
       console.error(error.message);

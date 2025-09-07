@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
         firebase.auth().signOut().then(() => {
           localStorage.removeItem("loginTime");
           alert("Session expired. Please log in again.");
-          window.location.href = "../Pages/signup.html";
+          window.location.href = "../Pages/login.html";
         });
       } else {
         fetchDefaultRecipes(); // ✅ Preload recipes
